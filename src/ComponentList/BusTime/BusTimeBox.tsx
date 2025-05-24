@@ -50,7 +50,7 @@ const BusTimeBox: React.FC<BusTimeBoxProps> = ({ TripAndTimes }) => {
           <span>{IDChangeName(Goal.stop_id)}</span>
         </div>
       </div>
-      <div className="text-sm text-right">行先　{Trips.trip_headsign}　</div>
+      <div className="text-sm text-right">行先 {Trips.trip_headsign} </div>
     </div>
   );
 };

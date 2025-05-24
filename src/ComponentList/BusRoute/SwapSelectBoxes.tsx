@@ -13,7 +13,7 @@ const SwapSelectBoxes = () => {
   const goal = useAtomValue(goalAtom);
   const setGoal = useSetAtom(changedGoalValueAtom);
   const swapValues = () => {
-    let temp = start;
+    const temp = start;
     setStart(goal);
     setGoal(temp);
   };

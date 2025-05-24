@@ -14,7 +14,7 @@ const DateSelectBox: React.FC<SelectBoxProps> = ({ value, list, onChange }) => {
       <select
         value={value}
         onChange={onChange}
-        className="w-13 text-center text-3xl bg-white"
+        className="w-11 text-center text-2xl bg-white"
       >
         {List.map((option, index) => (
           <option key={index} value={option} className="text-bold">
