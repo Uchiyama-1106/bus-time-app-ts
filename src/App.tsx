@@ -8,7 +8,8 @@ function App() {
 
 
   return (
-    <div className="">
+    // パソコンだとCSSが崩れるため、最大の横幅（576px）を設定する。
+    <div className="max-w-xl mx-auto">
       <header className="sticky top-0 left-0 right-0 h-40  bg-sky-200">
         <div className="pt-1 px-1">
           <NowTime />
@@ -16,7 +17,7 @@ function App() {
         </div>
       </header>
 
-      <div className="... mt-1 mx-1.5">
+      <div className="... mx-1.5">
         <BusTime />
       </div>
 
