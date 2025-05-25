@@ -1,12 +1,10 @@
-import './App.css'
-import NowTime from './ComponentList/NowTime'
-import Atention from './ComponentList/Atention'
-import BusRoute from './ComponentList/BusRoute/BusRoute'
-import BusTime from './ComponentList/BusTime/BusTime'
+import './App.css';
+import NowTime from './ComponentList/NowTime';
+import Atention from './ComponentList/Atention';
+import BusRoute from './ComponentList/BusRoute/BusRoute';
+import BusTime from './ComponentList/BusTime/BusTime';
 
 function App() {
-
-
   return (
     // パソコンだとCSSが崩れるため、最大の横幅（576px）を設定する。
     <div className="max-w-xl mx-auto">
@@ -24,9 +22,8 @@ function App() {
       <div className="... my-3 mx-2">
         <Atention />
       </div>
-
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

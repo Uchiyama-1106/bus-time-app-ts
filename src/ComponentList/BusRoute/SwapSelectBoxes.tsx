@@ -1,10 +1,10 @@
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from 'jotai';
 import {
   startAtom,
   goalAtom,
   changedStartValueAtom,
   changedGoalValueAtom,
-} from "../../Atoms";
+} from '../../Atoms';
 
 const SwapSelectBoxes = () => {
   const start = useAtomValue(startAtom);

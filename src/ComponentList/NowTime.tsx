@@ -1,6 +1,6 @@
-import { useAtom } from "jotai";
-import { nowAtom } from "../Atoms.ts";
-import { useEffect, useState } from "react";
+import { useAtom } from 'jotai';
+import { nowAtom } from '../Atoms.ts';
+import { useEffect, useState } from 'react';
 
 interface SelectBoxProps {
   value: number;
@@ -10,17 +10,17 @@ interface SelectBoxProps {
 const DateSelectBox: React.FC<SelectBoxProps> = ({ value, list, onChange }) => {
   const List: number[] = list;
   return (
-      <select
-        value={value}
-        onChange={onChange}
-        className="w-11 text-center text-xl bg-white py-1.5 text-center border border-black rounded-lg  font-semibold"
-      >
-        {List.map((option, index) => (
-          <option key={index} value={option} className="text-bold">
-            {option}
-          </option>
-        ))}
-      </select>
+    <select
+      value={value}
+      onChange={onChange}
+      className="w-11 text-center text-xl bg-white py-1.5 text-center border border-black rounded-lg  font-semibold"
+    >
+      {List.map((option, index) => (
+        <option key={index} value={option} className="text-bold">
+          {option}
+        </option>
+      ))}
+    </select>
   );
 };
 
@@ -43,7 +43,7 @@ const NowTime = () => {
 
   const monthList = [...Array(12)].map((_, i) => i + 1);
   const [dateList, setDateList] = useState(
-    [...Array(checkDateNum())].map((_, i) => i + 1),
+    [...Array(checkDateNum())].map((_, i) => i + 1)
   );
   const hourList = [...Array(24)].map((_, i) => i);
   const minutesList = [...Array(60)].map((_, i) => i);
@@ -70,8 +70,8 @@ const NowTime = () => {
         newDate,
         newHour,
         newMinutes,
-        0,
-      ),
+        0
+      )
     );
 
   return (

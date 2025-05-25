@@ -1,12 +1,12 @@
-import SelectBox from "./SelectBox";
-import SwapSelectBoxes from "./SwapSelectBoxes";
-import { useAtomValue, useSetAtom } from "jotai";
+import SelectBox from './SelectBox';
+import SwapSelectBoxes from './SwapSelectBoxes';
+import { useAtomValue, useSetAtom } from 'jotai';
 import {
   startAtom,
   goalAtom,
   changedStartValueAtom,
   changedGoalValueAtom,
-} from "../../Atoms";
+} from '../../Atoms';
 
 const BusRoute = () => {
   const start = useAtomValue(startAtom);
@@ -22,7 +22,7 @@ const BusRoute = () => {
 
   return (
     <div>
-      <div className="flex w-full pr-1" >
+      <div className="flex w-full pr-1">
         <div className="ml-2 h-12">
           <SwapSelectBoxes />
         </div>

@@ -1,9 +1,9 @@
-import { atom } from "jotai";
-import type { Stop, StopTime, Trip } from "./Types";
-import { TRIPS } from "./constant/trips";
-import { STOP_TIMES } from "./constant/stopTimes";
-import { STOPS } from "./constant/stops";
-import { CALENDAR_DATES } from "./constant/calendarDates";
+import { atom } from 'jotai';
+import type { Stop, StopTime, Trip } from './Types';
+import { TRIPS } from './constant/trips';
+import { STOP_TIMES } from './constant/stopTimes';
+import { STOPS } from './constant/stops';
+import { CALENDAR_DATES } from './constant/calendarDates';
 
 // 使うデータ
 
@@ -12,34 +12,32 @@ const tripIDList: string[] = TRIPS.map((value) => value.trip_id);
 type tripsByServiceID = Trip[][];
 export const tripsByServiceID: tripsByServiceID = Array.from(
   { length: 5 },
-  () => [],
+  () => []
 );
 
 TRIPS.forEach((value) => {
   const ServiceID = value.service_id;
-  if (ServiceID === "平日") {
+  if (ServiceID === '平日') {
     tripsByServiceID[0].push(value);
-  } else if (ServiceID === "土曜") {
+  } else if (ServiceID === '土曜') {
     tripsByServiceID[1].push(value);
-  } else if (ServiceID === "日祝") {
+  } else if (ServiceID === '日祝') {
     tripsByServiceID[2].push(value);
-  } else if (ServiceID === "特別ダイヤ１") {
+  } else if (ServiceID === '特別ダイヤ１') {
     tripsByServiceID[3].push(value);
-  } else if (ServiceID === "年末・年始") {
+  } else if (ServiceID === '年末・年始') {
     tripsByServiceID[4].push(value);
   }
 });
 
-
-
 const stop_timesByTripID: StopTime[][] = Array.from(
   { length: tripIDList.length },
-  () => new Array<StopTime>(),
+  () => new Array<StopTime>()
 );
 
 STOP_TIMES.forEach((value1) => {
   const tripIndex: number = tripIDList.findIndex(
-    (value2) => value1.trip_id === value2,
+    (value2) => value1.trip_id === value2
   );
   if (stop_timesByTripID[tripIndex] === undefined) {
     console.log(tripIndex);
@@ -57,27 +55,27 @@ export const BusSpotList: string[] = Array.from(
   new Set(
     STOPS.map((value) => {
       return value.stop_name;
-    }),
-  ),
+    })
+  )
 );
 
-export const changedStartValueAtom = atom<string>("");
+export const changedStartValueAtom = atom<string>('');
 
 export const startAtom = atom<string>((get) => {
   const Start = get(changedStartValueAtom);
-  if (Start === "") {
-    return "前橋駅";
+  if (Start === '') {
+    return '前橋駅';
   } else {
     return Start;
   }
 });
 
-export const changedGoalValueAtom = atom<string>("");
+export const changedGoalValueAtom = atom<string>('');
 
 export const goalAtom = atom<string>((get) => {
   const Goal = get(changedGoalValueAtom);
-  if (Goal === "") {
-    return "群馬大学荒牧";
+  if (Goal === '') {
+    return '群馬大学荒牧';
   } else {
     return Goal;
   }
@@ -91,25 +89,25 @@ export const BusServiceID = atom((get) => {
   const nowM = (n = now) =>
     n.getMonth() + 1 >= 10
       ? (n.getMonth() + 1).toString()
-      : "0" + (n.getMonth() + 1).toString();
+      : '0' + (n.getMonth() + 1).toString();
   type nowD = (n: Date) => string;
   const nowD = (n: Date = now) =>
     n.getMonth() + 1 >= 10
       ? (n.getMonth() + 1).toString()
-      : "0" + (n.getMonth() + 1).toString();
+      : '0' + (n.getMonth() + 1).toString();
   const nowYMD: string = nowY + nowM + nowD;
   const judgeServiceID = CALENDAR_DATES.find(
-    (value) => value.date === nowYMD && value.exception_type === "1",
+    (value) => value.date === nowYMD && value.exception_type === '1'
   );
   if (judgeServiceID) {
     return judgeServiceID.service_id;
   } else {
     if (now.getDay() === 6) {
-      return "土曜";
+      return '土曜';
     } else if (now.getDay() === 0) {
-      return "日祝";
+      return '日祝';
     } else {
-      return "平日";
+      return '平日';
     }
   }
 });
@@ -117,12 +115,12 @@ export const BusServiceID = atom((get) => {
 const busTrips = atom((get) => {
   const ServiceID = get(BusServiceID);
   let ans: Trip[] = [];
-  if (ServiceID === "平日")  ans = tripsByServiceID[0];
-  else if (ServiceID === "土曜")  ans = tripsByServiceID[1];
-  else if (ServiceID === "日祝")  ans = tripsByServiceID[2];
-  else if (ServiceID === "特別ダイヤ１")  ans = tripsByServiceID[3];
-  else if (ServiceID === "年末・年始")  ans = tripsByServiceID[4];
-  else console.log("ダイヤが見つかりません");
+  if (ServiceID === '平日') ans = tripsByServiceID[0];
+  else if (ServiceID === '土曜') ans = tripsByServiceID[1];
+  else if (ServiceID === '日祝') ans = tripsByServiceID[2];
+  else if (ServiceID === '特別ダイヤ１') ans = tripsByServiceID[3];
+  else if (ServiceID === '年末・年始') ans = tripsByServiceID[4];
+  else console.log('ダイヤが見つかりません');
   return ans;
 });
 
@@ -149,7 +147,7 @@ type distanceList = {
 const nearTargetStops: string[][] = [];
 
 const filteredSaveList: Stop[] = saveList.filter(
-  (item): item is Stop => item !== undefined,
+  (item): item is Stop => item !== undefined
 );
 
 for (let i = 1; i < saveList.length; i++) {
@@ -178,7 +176,7 @@ for (let i = 1; i < saveList.length; i++) {
 
 const sort: () => string[] = () => {
   const baseStop: Stop =
-    filteredSaveList.find((value) => value.stop_name === "前橋駅") ||
+    filteredSaveList.find((value) => value.stop_name === '前橋駅') ||
     filteredSaveList[0];
   const distanceList: distanceList[] = [];
   for (let i = 1; i < saveList.length; i++) {
@@ -201,10 +199,10 @@ const NearbusStartTransrateToID = atom<Stop[][]>((get) => {
   const NearStart: string[] =
     nearTargetStops.find((value) => value[0] === Start) || [];
   const StartID1: Stop[] = STOPS.filter(
-    (value) => value.stop_name === NearStart[1],
+    (value) => value.stop_name === NearStart[1]
   );
   const StartID2: Stop[] = STOPS.filter(
-    (value) => value.stop_name === NearStart[2],
+    (value) => value.stop_name === NearStart[2]
   );
   return [StartID1, StartID2];
 });
@@ -214,10 +212,10 @@ export const NearbusGoalTransrateToID = atom<Stop[][]>((get) => {
   const NearGoal: string[] =
     nearTargetStops.find((value) => value[0] === Goal) || [];
   const GoalID1: Stop[] = STOPS.filter(
-    (value) => value.stop_name === NearGoal[1],
+    (value) => value.stop_name === NearGoal[1]
   );
   const GoalID2: Stop[] = STOPS.filter(
-    (value) => value.stop_name === NearGoal[2],
+    (value) => value.stop_name === NearGoal[2]
   );
   return [GoalID1, GoalID2];
 });
@@ -234,7 +232,7 @@ const oneDigitCheck = (value: number) => {
   if (value >= 10) {
     return value.toString();
   } else {
-    return "0" + value.toString();
+    return '0' + value.toString();
   }
 };
 
@@ -252,7 +250,7 @@ export const busTime = atom((get) => {
   const nowTime: number = Number(
     Now.getHours().toString() +
       oneDigitCheck(Now.getMinutes()) +
-      oneDigitCheck(Now.getSeconds()),
+      oneDigitCheck(Now.getSeconds())
   );
   const StartIDList = Start.map((value) => value.stop_id);
   const GoalIDList = Goal.map((value) => value.stop_id);
@@ -263,28 +261,28 @@ export const busTime = atom((get) => {
   for (let i = 0; i < Trips.length; i++) {
     const trip: Trip = Trips[i];
     const tripIndex: number = TripID.findIndex(
-      (value) => value === trip.trip_id,
+      (value) => value === trip.trip_id
     );
     const Stop_time: StopTime[] = Stop_times[tripIndex];
     let StartFlag: boolean = false;
     let GoalFlag: boolean = false;
     let StartStop_time: StopTime = {
-      trip_id: "",
-      arrival_time: "",
-      departure_time: "",
-      stop_id: "",
+      trip_id: '',
+      arrival_time: '',
+      departure_time: '',
+      stop_id: '',
     };
     let GoalStop_time: StopTime = {
-      trip_id: "",
-      arrival_time: "",
-      departure_time: "",
-      stop_id: "",
+      trip_id: '',
+      arrival_time: '',
+      departure_time: '',
+      stop_id: '',
     };
 
     // 到着情報ごとに
     for (let j = 0; j < Stop_time.length && List.length < 5; j++) {
       const depTime: number = Number(
-        Stop_time[j].departure_time.split(":").join(""),
+        Stop_time[j].departure_time.split(':').join('')
       );
       if (StartFlag === false) {
         if (StartIDList.includes(Stop_time[j].stop_id) && depTime >= nowTime) {
@@ -323,28 +321,28 @@ export const busTime = atom((get) => {
     for (let i: number = checkStart; i < checkEnd; i++) {
       const trip: Trip = Trips[i];
       const tripIndex: number = TripID.findIndex(
-        (value) => value === trip.trip_id,
+        (value) => value === trip.trip_id
       );
 
       const Stop_time: StopTime[] = Stop_times[tripIndex];
       let StartFlag: boolean = false;
       let GoalFlag: boolean = false;
       let StartStop_time: StopTime = {
-        trip_id: "",
-        arrival_time: "",
-        departure_time: "",
-        stop_id: "",
+        trip_id: '',
+        arrival_time: '',
+        departure_time: '',
+        stop_id: '',
       };
       let GoalStop_time: StopTime = {
-        trip_id: "",
-        arrival_time: "",
-        departure_time: "",
-        stop_id: "",
+        trip_id: '',
+        arrival_time: '',
+        departure_time: '',
+        stop_id: '',
       };
       // 到着情報ごとに
       for (let j = 0; j < Stop_time.length; j++) {
         const depTime: number = Number(
-          Stop_time[j].departure_time.split(":").join(""),
+          Stop_time[j].departure_time.split(':').join('')
         );
         if (StartFlag === false) {
           if (
@@ -384,8 +382,8 @@ export const busTime = atom((get) => {
 
   List.sort(
     (a, b) =>
-      Number(a[1].departure_time.split(":").join("")) -
-      Number(b[1].departure_time.split(":").join("")),
+      Number(a[1].departure_time.split(':').join('')) -
+      Number(b[1].departure_time.split(':').join(''))
   );
   const ansList = List.filter((_value, index) => index < 5);
 
