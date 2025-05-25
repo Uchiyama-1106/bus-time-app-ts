@@ -1,4 +1,4 @@
-import { sortedBusSpotList } from "../Atoms";
+import { sortedBusSpotList } from "../../Atoms";
 
 interface SelectBoxProps {
   value: string;

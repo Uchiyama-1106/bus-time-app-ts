@@ -4,7 +4,7 @@ import {
   goalAtom,
   changedStartValueAtom,
   changedGoalValueAtom,
-} from "../Atoms";
+} from "../../Atoms";
 
 const SwapSelectBoxes = () => {
   const start = useAtomValue(startAtom);

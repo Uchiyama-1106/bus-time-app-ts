@@ -6,7 +6,7 @@ import {
   goalAtom,
   changedStartValueAtom,
   changedGoalValueAtom,
-} from "../Atoms";
+} from "../../Atoms";
 
 const BusRoute = () => {
   const start = useAtomValue(startAtom);

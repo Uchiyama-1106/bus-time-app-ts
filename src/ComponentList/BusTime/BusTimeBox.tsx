@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { stopInfo } from "../Atoms";
+import { stopInfo } from "../../Atoms";
 
 type trips = {
   service_id: string;

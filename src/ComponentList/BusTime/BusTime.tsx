@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { busTime } from "../Atoms";
+import { busTime } from "../../Atoms";
 import BusTimeBox from "./BusTimeBox";
 
 type trips = {

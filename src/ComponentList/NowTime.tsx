@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { nowAtom } from "./Atoms.ts";
+import { nowAtom } from "../Atoms.ts";
 import { useEffect, useState } from "react";
 
 interface SelectBoxProps {
