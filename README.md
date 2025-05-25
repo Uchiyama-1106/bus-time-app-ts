@@ -1,54 +1,45 @@
-# React + TypeScript + Vite
+# バス時刻表アプリ（前橋駅 ⇄ 群馬大学）
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 概要
 
-Currently, two official plugins are available:
+このアプリは、**前橋駅 ⇄ 群馬大学**間のバス利用を支援するための時刻表アプリです。  
+一部のバスは「群馬大学」バス停には停車しないものの、その1つ手前にある「前橋自動車教習所前」には停車します。両バス停の距離は数百メートルで、徒歩5〜10分程度です。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 主な利用シーン
 
-## Expanding the ESLint configuration
+- 前橋駅から群馬大学へ通学・訪問
+- 群馬大学から前橋駅へ帰宅・移動
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 既存アプリの課題
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 既存アプリの課題
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Google MapsやNAVITIMEなどの乗換案内アプリでは、「前橋駅」から「群馬大学」へのルート検索時に、「前橋自動車教習所前」のみに停車する便が表示されないことがあります。  
+この便は本数が少なく、見逃すと次のバスまで長時間待つことになります。
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+その結果、多くの人が限られた便（群馬大学バス停に停車する便）に集中し、特に4月などの混雑時期にはバス車内が非常に混み合ってしまうという問題があります。
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### このアプリの特徴
+
+このアプリでは、指定したバス停（例：群馬大学）には停車しないものの、近くのバス停（例：前橋自動車教習所前）に停車する便も時刻表に表示します。
+
+これにより、**既存のアプリでは見逃されがちな便を利用できる**ようになり、混雑回避や時間の有効活用が可能になります。  
+他の人があまり利用しない便を把握できることで、より快適でスムーズな移動を実現します。
+
+## 開発について
+
+このアプリは、**React** と **TypeScript** の学習目的で開発されました。  
+2025年5月には依存ライブラリのアップデートを行いましたが、基本的なコードは初期のままであり、未熟な実装も一部含まれています。
+
+## 使用技術
+
+### フレームワーク・言語
+
+- [Vite](https://vitejs.dev/)
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+
+### ライブラリ
+
+- [Tailwind CSS](https://tailwindcss.com/)：スタイリング
+- [Jotai](https://jotai.org/)：状態管理
