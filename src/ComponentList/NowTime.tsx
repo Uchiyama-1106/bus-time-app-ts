@@ -10,11 +10,10 @@ interface SelectBoxProps {
 const DateSelectBox: React.FC<SelectBoxProps> = ({ value, list, onChange }) => {
   const List: number[] = list;
   return (
-    <div className="w-12 py-1.5 text-center border border-black rounded-lg  font-semibold bg-white">
       <select
         value={value}
         onChange={onChange}
-        className="w-11 text-center text-2xl bg-white"
+        className="w-11 text-center text-xl bg-white py-1.5 text-center border border-black rounded-lg  font-semibold"
       >
         {List.map((option, index) => (
           <option key={index} value={option} className="text-bold">
@@ -22,7 +21,6 @@ const DateSelectBox: React.FC<SelectBoxProps> = ({ value, list, onChange }) => {
           </option>
         ))}
       </select>
-    </div>
   );
 };
 
@@ -77,11 +75,11 @@ const NowTime = () => {
     );
 
   return (
-    <div>
+    <div className="flex justify-center items-center flex-col rounded-lg">
       <div className="flex ml-2 mb-2 items-end">
         <div className="mr-2">
-          <div className="mr-1 font-semibold ">出発</div>
-          <div className="mr-1 font-semibold ">時刻</div>
+          <div className="font-semibold  text-sm">出発</div>
+          <div className="font-semibold  text-sm">時刻</div>
         </div>
         <DateSelectBox
           value={newMonth}
