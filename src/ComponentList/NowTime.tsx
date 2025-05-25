@@ -27,7 +27,7 @@ const DateSelectBox: React.FC<SelectBoxProps> = ({ value, list, onChange }) => {
 };
 
 const NowTime = () => {
-  const [now, setNow] = useAtom(nowAtom);
+  const [now, setNow] = useAtom<Date>(nowAtom);
   const nowHandleClick = () => setNow(new Date());
   const [newYear, setNewYear] = useState(now.getFullYear());
   const [newMonth, setNewMonth] = useState(now.getMonth() + 1);

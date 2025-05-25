@@ -1,21 +1,10 @@
 import { useAtomValue } from "jotai";
 import { busTime } from "../../Atoms";
 import BusTimeBox from "./BusTimeBox";
-
-type trips = {
-  service_id: string;
-  trip_id: string;
-  trip_headsign: string;
-};
-type stop_times = {
-  trip_id: string;
-  arrival_time: string;
-  departure_time: string;
-  stop_id: string;
-};
+import type { StopTime, Trip } from "../../Types";
 
 const BusTime = () => {
-  const busTimes: Array<[trips, stop_times, stop_times]> =
+  const busTimes: Array<[Trip, StopTime, StopTime]> =
     useAtomValue(busTime);
   const CreateBusTime = () => {
     return busTimes.map((value, index) => (
