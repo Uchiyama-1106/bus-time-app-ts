@@ -1,7 +1,7 @@
-import type { Trips } from "../Types";
+import type { Trip } from "../Types";
 
 
-export const TRIPS: Trips[] = [
+export const TRIPS: Trip[] = [
   {
     service_id: "平日",
     trip_id: "平日_05時35分_系統267",

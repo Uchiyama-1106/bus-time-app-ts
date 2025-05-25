@@ -1,6 +1,6 @@
-import type { StopTimes } from "../Types";
+import type { StopTime } from "../Types";
 
-export const STOP_TIMES: StopTimes[] = [
+export const STOP_TIMES: StopTime[] = [
   {
     trip_id: "平日_05時35分_系統267",
     arrival_time: "05:35:00",

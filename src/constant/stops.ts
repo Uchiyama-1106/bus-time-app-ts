@@ -1,6 +1,6 @@
-import type { Stops } from "../Types";
+import type { Stop } from "../Types";
 
-export const STOPS: Stops[] = [
+export const STOPS: Stop[] = [
   {
     stop_id: "200007_01",
     stop_name: "ＮＴＴ前",

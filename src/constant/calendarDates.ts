@@ -1,6 +1,6 @@
-import type { CalendarDates } from "../Types";
+import type { CalendarDate } from "../Types";
 
-export const CALENDAR_DATES: CalendarDates[] = [
+export const CALENDAR_DATES: CalendarDate[] = [
   { service_id: "平日", date: "20240429", exception_type: "2" },
   { service_id: "日祝", date: "20240429", exception_type: "1" },
   { service_id: "平日", date: "20240503", exception_type: "2" },

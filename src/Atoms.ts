@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import type { Stops, StopTimes, Trips } from "./Types";
+import type { Stop, StopTime, Trip } from "./Types";
 import { TRIPS } from "./constant/trips";
 import { STOP_TIMES } from "./constant/stopTimes";
 import { STOPS } from "./constant/stops";
@@ -9,7 +9,7 @@ import { CALENDAR_DATES } from "./constant/calendarDates";
 
 const tripIDList: string[] = TRIPS.map((value) => value.trip_id);
 
-type tripsByServiceID = Trips[][];
+type tripsByServiceID = Trip[][];
 export const tripsByServiceID: tripsByServiceID = Array.from(
   { length: 5 },
   () => [],
@@ -32,9 +32,9 @@ TRIPS.forEach((value) => {
 
 
 
-const stop_timesByTripID: StopTimes[][] = Array.from(
+const stop_timesByTripID: StopTime[][] = Array.from(
   { length: tripIDList.length },
-  () => new Array<StopTimes>(),
+  () => new Array<StopTime>(),
 );
 
 STOP_TIMES.forEach((value1) => {
@@ -116,7 +116,7 @@ export const BusServiceID = atom((get) => {
 
 const busTrips = atom((get) => {
   const ServiceID = get(BusServiceID);
-  let ans: Trips[] = [];
+  let ans: Trip[] = [];
   if (ServiceID === "平日")  ans = tripsByServiceID[0];
   else if (ServiceID === "土曜")  ans = tripsByServiceID[1];
   else if (ServiceID === "日祝")  ans = tripsByServiceID[2];
@@ -126,19 +126,19 @@ const busTrips = atom((get) => {
   return ans;
 });
 
-const busStartTransrateToID = atom<Stops[]>((get) => {
+const busStartTransrateToID = atom<Stop[]>((get) => {
   const Start = get(startAtom);
-  const StartID: Stops[] = STOPS.filter((value) => value.stop_name === Start);
+  const StartID: Stop[] = STOPS.filter((value) => value.stop_name === Start);
   return StartID;
 });
 
-const busGoalTransrateToID = atom<Stops[]>((get) => {
+const busGoalTransrateToID = atom<Stop[]>((get) => {
   const Goal = get(goalAtom);
-  const GoalID: Stops[] = STOPS.filter((value) => value.stop_name === Goal);
+  const GoalID: Stop[] = STOPS.filter((value) => value.stop_name === Goal);
   return GoalID;
 });
 
-const saveList: (Stops | undefined)[] = BusSpotList.map((value) => {
+const saveList: (Stop | undefined)[] = BusSpotList.map((value) => {
   return STOPS.find((item) => item.stop_name === value);
 }).filter(Boolean);
 type distanceList = {
@@ -148,15 +148,15 @@ type distanceList = {
 
 const nearTargetStops: string[][] = [];
 
-const filteredSaveList: Stops[] = saveList.filter(
-  (item): item is Stops => item !== undefined,
+const filteredSaveList: Stop[] = saveList.filter(
+  (item): item is Stop => item !== undefined,
 );
 
 for (let i = 1; i < saveList.length; i++) {
-  const baseStop: Stops = filteredSaveList[i];
+  const baseStop: Stop = filteredSaveList[i];
   const distanceList: distanceList[] = [];
   for (let j = 1; j < filteredSaveList.length; j++) {
-    const compereStop: Stops = filteredSaveList[j];
+    const compereStop: Stop = filteredSaveList[j];
     if (compereStop === baseStop) {
       continue;
     } else {
@@ -177,12 +177,12 @@ for (let i = 1; i < saveList.length; i++) {
 }
 
 const sort: () => string[] = () => {
-  const baseStop: Stops =
+  const baseStop: Stop =
     filteredSaveList.find((value) => value.stop_name === "前橋駅") ||
     filteredSaveList[0];
   const distanceList: distanceList[] = [];
   for (let i = 1; i < saveList.length; i++) {
-    const compereStop: Stops = filteredSaveList[i];
+    const compereStop: Stop = filteredSaveList[i];
     const lat: number =
       (Number(compereStop.stop_lat) - Number(baseStop.stop_lat)) ** 2;
     const lon: number =
@@ -196,37 +196,37 @@ const sort: () => string[] = () => {
 
 export const sortedBusSpotList = sort();
 
-const NearbusStartTransrateToID = atom<Stops[][]>((get) => {
+const NearbusStartTransrateToID = atom<Stop[][]>((get) => {
   const Start = get(startAtom);
   const NearStart: string[] =
     nearTargetStops.find((value) => value[0] === Start) || [];
-  const StartID1: Stops[] = STOPS.filter(
+  const StartID1: Stop[] = STOPS.filter(
     (value) => value.stop_name === NearStart[1],
   );
-  const StartID2: Stops[] = STOPS.filter(
+  const StartID2: Stop[] = STOPS.filter(
     (value) => value.stop_name === NearStart[2],
   );
   return [StartID1, StartID2];
 });
 
-export const NearbusGoalTransrateToID = atom<Stops[][]>((get) => {
+export const NearbusGoalTransrateToID = atom<Stop[][]>((get) => {
   const Goal = get(goalAtom);
   const NearGoal: string[] =
     nearTargetStops.find((value) => value[0] === Goal) || [];
-  const GoalID1: Stops[] = STOPS.filter(
+  const GoalID1: Stop[] = STOPS.filter(
     (value) => value.stop_name === NearGoal[1],
   );
-  const GoalID2: Stops[] = STOPS.filter(
+  const GoalID2: Stop[] = STOPS.filter(
     (value) => value.stop_name === NearGoal[2],
   );
   return [GoalID1, GoalID2];
 });
 
-export const stopInfo = atom<Stops[]>((get) => {
-  const Start: Stops[] = get(busStartTransrateToID);
-  const Goal: Stops[] = get(busGoalTransrateToID);
-  const NearStart: Stops[] = get(NearbusStartTransrateToID).flat();
-  const NearGoal: Stops[] = get(NearbusGoalTransrateToID).flat();
+export const stopInfo = atom<Stop[]>((get) => {
+  const Start: Stop[] = get(busStartTransrateToID);
+  const Goal: Stop[] = get(busGoalTransrateToID);
+  const NearStart: Stop[] = get(NearbusStartTransrateToID).flat();
+  const NearGoal: Stop[] = get(NearbusGoalTransrateToID).flat();
   return [...Start, ...Goal, ...NearStart, ...NearGoal];
 });
 
@@ -240,14 +240,14 @@ const oneDigitCheck = (value: number) => {
 
 export const busTime = atom((get) => {
   const Now = get(nowAtom);
-  const Start: Stops[] = get(busStartTransrateToID);
-  const Goal: Stops[] = get(busGoalTransrateToID);
-  const NearStart: Stops[][] = get(NearbusStartTransrateToID);
-  const NearGoal: Stops[][] = get(NearbusGoalTransrateToID);
-  const Stop_times: StopTimes[][] = [...stop_timesByTripID];
+  const Start: Stop[] = get(busStartTransrateToID);
+  const Goal: Stop[] = get(busGoalTransrateToID);
+  const NearStart: Stop[][] = get(NearbusStartTransrateToID);
+  const NearGoal: Stop[][] = get(NearbusGoalTransrateToID);
+  const Stop_times: StopTime[][] = [...stop_timesByTripID];
   const TripID = [...tripIDList];
   // Trips => TripIDでインデックスを取得 => Stop_timesで該当するインデックスを検索=>Startが現在時刻より後に出発時刻が設定されているか、
-  const Trips: Trips[] = get(busTrips);
+  const Trips: Trip[] = get(busTrips);
 
   const nowTime: number = Number(
     Now.getHours().toString() +
@@ -256,25 +256,25 @@ export const busTime = atom((get) => {
   );
   const StartIDList = Start.map((value) => value.stop_id);
   const GoalIDList = Goal.map((value) => value.stop_id);
-  const List: Array<[Trips, StopTimes, StopTimes]> = [];
+  const List: Array<[Trip, StopTime, StopTime]> = [];
   // Trip(便)ごとに
   let firstStop: number | null = null;
 
   for (let i = 0; i < Trips.length; i++) {
-    const trip: Trips = Trips[i];
+    const trip: Trip = Trips[i];
     const tripIndex: number = TripID.findIndex(
       (value) => value === trip.trip_id,
     );
-    const Stop_time: StopTimes[] = Stop_times[tripIndex];
+    const Stop_time: StopTime[] = Stop_times[tripIndex];
     let StartFlag: boolean = false;
     let GoalFlag: boolean = false;
-    let StartStop_time: StopTimes = {
+    let StartStop_time: StopTime = {
       trip_id: "",
       arrival_time: "",
       departure_time: "",
       stop_id: "",
     };
-    let GoalStop_time: StopTimes = {
+    let GoalStop_time: StopTime = {
       trip_id: "",
       arrival_time: "",
       departure_time: "",
@@ -311,7 +311,7 @@ export const busTime = atom((get) => {
 
   let targetbustripId: string[] = List.map((value) => value[0].trip_id);
 
-  const checkNearTarget = (nearStartStop: Stops[], nearGoalStop: Stops[]) => {
+  const checkNearTarget = (nearStartStop: Stop[], nearGoalStop: Stop[]) => {
     const StartIDList = nearStartStop.map((value) => value.stop_id);
     const GoalIDList = nearGoalStop.map((value) => value.stop_id);
     const checkStart: number =
@@ -321,21 +321,21 @@ export const busTime = atom((get) => {
         ? Trips.length
         : firstStop + 10;
     for (let i: number = checkStart; i < checkEnd; i++) {
-      const trip: Trips = Trips[i];
+      const trip: Trip = Trips[i];
       const tripIndex: number = TripID.findIndex(
         (value) => value === trip.trip_id,
       );
 
-      const Stop_time: StopTimes[] = Stop_times[tripIndex];
+      const Stop_time: StopTime[] = Stop_times[tripIndex];
       let StartFlag: boolean = false;
       let GoalFlag: boolean = false;
-      let StartStop_time: StopTimes = {
+      let StartStop_time: StopTime = {
         trip_id: "",
         arrival_time: "",
         departure_time: "",
         stop_id: "",
       };
-      let GoalStop_time: StopTimes   = {
+      let GoalStop_time: StopTime = {
         trip_id: "",
         arrival_time: "",
         departure_time: "",
