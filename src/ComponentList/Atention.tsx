@@ -18,8 +18,10 @@ const Atention = () => {
           <a
             className="text-blue-600 underline decoration-solid"
             href="https://kan-etsu.net/publics/index/193/"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            GTFS-JP(kan-etsu)(2024-03-30 ・ 2636KB)のGTFSデータ
+            GTFS-JP(kan-etsu)(2025-04-17・2242KB) のGTFSデータ
           </a>
           から、前橋渋川線に関する情報を抽出して利用しています。
         </p>
