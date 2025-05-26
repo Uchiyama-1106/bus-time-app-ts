@@ -21,7 +21,7 @@ const SwapSelectBoxes = () => {
   return (
     <button
       onClick={swapValues}
-      className="w-10 h-14 rounded-lg font-bold bg-orange-400 shadow-md
+      className="w-10 h-13 rounded-lg font-bold bg-orange-400 shadow-md
     active:scale-95 active:shadow
     transition transform
     cursor-pointer"

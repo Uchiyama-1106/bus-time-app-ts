@@ -22,8 +22,8 @@ const BusRoute = () => {
 
   return (
     <div>
-      <div className="flex w-full pr-1">
-        <div className="ml-2 h-12">
+      <div className="flex w-full pr-1 align-items-center">
+        <div className="ml-2">
           <SwapSelectBoxes />
         </div>
         <div className="ml-1.5 w-full">
